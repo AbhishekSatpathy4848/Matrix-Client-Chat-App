@@ -3,6 +3,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+final _formKey = GlobalKey<FormState>();
+
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
 
@@ -33,22 +35,48 @@ class SignIn extends StatelessWidget {
           SizedBox(
             height: 75,
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              cursorColor: Colors.white,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
-                labelText: "PASSWORD",
-                prefixIcon: Icon(Icons.lock_rounded),
+          Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter some text";
+                  }
+                  return null;
+                },
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+                cursorColor: Colors.white,
+                decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderSide: BorderSide(color: Colors.white)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                  labelText: "PASSWORD",
+                  labelStyle: TextStyle(color: Colors.white),
+                  prefixIcon: Icon(
+                    Icons.lock_rounded,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return Placeholder();
+                    }));
+                  }
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 color: Colors.blue,
