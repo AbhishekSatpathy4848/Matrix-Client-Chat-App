@@ -2,13 +2,8 @@
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MaterialApp(
-    theme: ThemeData.dark(),
-    home: Login(),
-  ));
-}
+import 'package:matrix_chat_app/features/login_registration/pages/page_2.dart';
+import 'package:matrix_chat_app/features/login_registration/pages/page_3.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -25,19 +20,16 @@ class _LoginState extends State<Login> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           centerTitle: true,
-          title: Text("SIGN UP",
+          title: Text("LOGIN",
               style: TextStyle(
                 color: Colors.white,
               )),
           actions: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.help,
-                  )),
-            )
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.help,
+                ))
           ],
         ),
         body: Padding(
@@ -54,7 +46,6 @@ class _LoginState extends State<Login> {
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                color: Colors.grey[900],
                 child: Text(
                   'MatChat',
                   style: TextStyle(
@@ -86,7 +77,12 @@ class _LoginState extends State<Login> {
                   children: [
                     Expanded(
                       child: MaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return SignIn();
+                            }));
+                          },
                           color: Colors.blue,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
@@ -99,7 +95,12 @@ class _LoginState extends State<Login> {
                     SizedBox(width: 15),
                     Expanded(
                       child: MaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return SignUp();
+                            }));
+                          },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
                           color: Colors.blue,
@@ -158,36 +159,31 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Spacer(),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Contact Number : 1234567890",
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                      ),
-                    )),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Email : placeholder@gmail.com",
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                      ),
-                    )),
-              ),
-              Container(
-                color: Colors.grey[800],
+              // TextButton(
+              //     onPressed: () {},
+              //     child: Text(
+              //       "Contact Number : 1234567890",
+              //       style: TextStyle(
+              //         color: Colors.grey[700],
+              //       ),
+              //     )),
+              // TextButton(
+              //     onPressed: () {},
+              //     child: Text(
+              //       "Email : placeholder@gmail.com",
+              //       style: TextStyle(
+              //         color: Colors.grey[700],
+              //       ),
+              //     )),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 18.0),
                 child: Image(
+                    color: Colors.grey,
                     height: 30,
                     width: 100,
                     image: AssetImage(
                         'lib/features/login_registration/assets/matrix.png')),
-              )
+              ),
             ],
           ),
         ));
