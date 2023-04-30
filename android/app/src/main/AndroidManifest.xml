@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.matrix_chat_app">
+    <uses-permission android:name="android.permission.CAMERA" />    
    <application
         android:label="matrix_chat_app"
         android:name="${applicationName}"
