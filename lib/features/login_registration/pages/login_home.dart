@@ -2,8 +2,8 @@
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:matrix_chat_app/features/login_registration/pages/page_2.dart';
-import 'package:matrix_chat_app/features/login_registration/pages/page_3.dart';
+import 'package:matrix_chat_app/features/login_registration/pages/sign_up_page.dart';
+import 'package:matrix_chat_app/features/login_registration/pages/sign_in_page.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.all(30.0),
                 child: CircleAvatar(
                   backgroundImage: AssetImage(
-                      "lib/features/login_registration/assets/google.jpg"),
+                      "lib/features/login_registration/assets/matrix_icon.png"),
                   radius: 50,
                 ),
               ),

@@ -37,10 +37,10 @@ packages:
     dependency: transitive
     description:
       name: blurhash_dart
-      sha256: d18fa567dce8bc897d31e14e084d2b1a4306e6bfde30a0e72ebf5f5ff549ced9
+      sha256: "43955b6c2e30a7d440028d1af0fa185852f3534b795cc6eb81fbf397b464409f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -308,10 +308,10 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"
+      sha256: "73964e3609fb96e01e69b0924b939967c556e46c7ff05db2ea9e31019000f4ef"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "4.0.16"
   js:
     dependency: transitive
     description:
@@ -356,18 +356,18 @@ packages:
     dependency: "direct main"
     description:
       name: matrix
-      sha256: "8c07fa7b558d28891ea2609542295e4bb3e8360545540b434abaf055dde3a59c"
+      sha256: f15c324ee4583a5379e8ebb3032611763b0555a13cbc2ced3aa452d78c7d0541
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.0"
+    version: "0.20.0"
   matrix_api_lite:
     dependency: transitive
     description:
       name: matrix_api_lite
-      sha256: "7c1af53ccdcaf69db1372f607cba48f4ac360595c9bc9e1420768adb2f1c3814"
+      sha256: "16d74a065a085adf30985e6068c9cc001e130979d1f186e40f733450a6583725"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.10"
+    version: "1.6.1"
   meta:
     dependency: transitive
     description:
