@@ -41,6 +41,7 @@ class SignUp extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
+                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter some text";
@@ -69,6 +70,7 @@ class SignUp extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
+                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter some text";
