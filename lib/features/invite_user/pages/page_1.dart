@@ -1,13 +1,8 @@
-import 'dart:async';
-import 'dart:ui';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/rendering.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:share/share.dart';
+
 
 class GenerateScreen extends StatefulWidget {
   const GenerateScreen({super.key});
@@ -22,6 +17,7 @@ class _GenerateScreenState extends State<GenerateScreen> {
   final String _dataString =
       "https://www.linkedin.com/in/swati-vinayak-bhat-9b6820248";
   late TextEditingController _textController = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +51,7 @@ class _GenerateScreenState extends State<GenerateScreen> {
                 children: [
                   Expanded(
                     child: TextField(
+                       
                       style: const TextStyle(color: Colors.white),
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
@@ -102,25 +99,6 @@ class _GenerateScreenState extends State<GenerateScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _captureAndSharePng() async {
-    try {
-      RenderRepaintBoundary? boundary = globalKey.currentContext!
-          .findRenderObject()! as RenderRepaintBoundary;
-      var image = await toImage(boundary);
-      ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
-      Uint8List pngBytes = byteData.buffer.asUint8List();
-
-      final tempDir = await getTemporaryDirectory();
-      final file = await File('${tempDir.path}/image.png').create();
-      await file.writeAsBytes(pngBytes);
-
-      Share.shareFiles([(file.path)], text: "My image");
-    } catch (e) {
-      // ignore: avoid_print
-      print(e.toString());
-    }
   }
 
   _contentWidget() {
@@ -176,6 +154,4 @@ class _GenerateScreenState extends State<GenerateScreen> {
       ],
     );
   }
-
-  toImage(RenderObject? boundary) {}
 }
