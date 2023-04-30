@@ -31,17 +31,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  path_provider: ^2.0.14
-  matrix: 
   flutter_olm: ^1.2.0
-  flutter_openssl_crypto: ^0.1.0 
+  flutter_openssl_crypto: ^0.1.0
+  matrix: null
+  path_provider: ^2.0.14
   provider: ^6.0.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
