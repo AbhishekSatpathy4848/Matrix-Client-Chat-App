@@ -1,17 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 import 'dart:io';
-//import "package:flutter/foundatiofluttn.dart";
 import 'package:flutter/material.dart';
-
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
-import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+
 
 class GenerateScreen extends StatefulWidget {
   const GenerateScreen({super.key});
@@ -21,17 +18,11 @@ class GenerateScreen extends StatefulWidget {
 }
 
 class _GenerateScreenState extends State<GenerateScreen> {
-  static const double _topSectionTopPadding = 10.0;
-  static const double _topSectionBottomPadding = 5.0;
-  static const double _topSectionHeight = 10.0;
   late String scanresult;
-
   GlobalKey globalKey = GlobalKey();
   final String _dataString =
       "https://www.linkedin.com/in/swati-vinayak-bhat-9b6820248";
-  String? _inputErrorText;
   late TextEditingController _textController = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +48,6 @@ class _GenerateScreenState extends State<GenerateScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Stack(
           alignment: Alignment.bottomCenter,
-          // mainAxisSize: MainAxisSize.max,
-          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
             _contentWidget(),
             Padding(
@@ -140,30 +129,6 @@ class _GenerateScreenState extends State<GenerateScreen> {
         MediaQuery.of(context).viewInsets.bottom;
     return Column(
       children: <Widget>[
-        // Padding(
-        //   padding: const EdgeInsets.only(
-        //     top: _topSectionTopPadding,
-        //     bottom: _topSectionBottomPadding,
-        //     left: 20.0,
-        //     right: 10.0,
-        //   ),
-        //   // ignore: sized_box_for_whitespace
-        //   child: Container(
-        //     height: _topSectionHeight,
-        //     child: Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: <Widget>[
-        //         Padding(
-        //           padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-        //           child: QrImage(
-        //               data:
-        //                   "https://www.linkedin.com/in/swati-vinayak-bhat-9b6820248"),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
         Padding(
           padding: const EdgeInsets.only(top: 20),
           child: Container(
@@ -185,26 +150,13 @@ class _GenerateScreenState extends State<GenerateScreen> {
           ),
         ),
         const SizedBox(height: 10.0),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     const Icon(Icons.share, color: Colors.white, size: 27.0),
-        //     TextButton(
-        //       onPressed: _captureAndSharePng,
-        //       child: const Center(
-        //         child: Text(
-        //           'Share QR code',
-        //           style: TextStyle(fontSize: 18.0),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
+        
         ElevatedButton(
           onPressed: () async {
             scanresult = (await scanner.scan())!;
-            _textController.text = scanresult.substring(scanresult.indexOf('@') + 1);
-              },
+            _textController.text =
+                scanresult.substring(scanresult.indexOf('@') + 1);
+          },
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(
               horizontal: 40,
@@ -226,26 +178,8 @@ class _GenerateScreenState extends State<GenerateScreen> {
       ],
     );
 
-    // Share.file('ESYS AMLOG', 'amlog.png', pngBytes, 'image/png');
+    
   }
 
   toImage(RenderObject? boundary) {}
-
-  void checkingValue() {
-    if (scanresult.startsWith('https://matrix.to/#/')) {
-      return openMatrixToUrl();
-    }
-    print(scanresult);
-    launchUrl(scanresult as Uri);
-  }
-
-  void openMatrixToUrl() async {
-    if (await canLaunchUrlString(scanresult)) {
-      await launchUrlString(scanresult);
-    } else {
-      throw 'Could not launch $scanresult';
-    }
-  }
 }
-//https://matrix.to/#/@dms_akshat:matrix.org"
-//FormatException (FormatException: Invalid envelope)
