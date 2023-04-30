@@ -13,7 +13,7 @@ class SignUp extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: Text("SIGN UP",
+        title: Text("SIGN IN",
             style: TextStyle(
               color: Colors.white,
             )),
@@ -46,18 +46,6 @@ class SignUp extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              cursorColor: Colors.white,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
-                labelText: "Email adddress",
-                prefixIcon: Icon(Icons.mail_rounded),
-              ),
-            ),
-          ),
-          Padding(
             padding: const EdgeInsets.all(15.0),
             child: MaterialButton(
                 onPressed: () {},
@@ -67,7 +55,7 @@ class SignUp extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
                   child: Text(
-                    "SIGN UP",
+                    "SIGN IN",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
