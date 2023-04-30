@@ -35,6 +35,7 @@ dependencies:
   matrix: 
   flutter_olm: ^1.2.0
   flutter_openssl_crypto: ^0.1.0 
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0
