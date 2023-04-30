@@ -9,7 +9,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:share/share.dart';
 
-
 class GenerateScreen extends StatefulWidget {
   const GenerateScreen({super.key});
 
@@ -39,7 +38,7 @@ class _GenerateScreenState extends State<GenerateScreen> {
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: () {
-              _captureAndSharePng();
+              Share.share(_dataString, subject: 'Look what I made!');
             },
           ),
         ],
@@ -150,7 +149,6 @@ class _GenerateScreenState extends State<GenerateScreen> {
           ),
         ),
         const SizedBox(height: 10.0),
-        
         ElevatedButton(
           onPressed: () async {
             scanresult = (await scanner.scan())!;
@@ -177,8 +175,6 @@ class _GenerateScreenState extends State<GenerateScreen> {
         ),
       ],
     );
-
-    
   }
 
   toImage(RenderObject? boundary) {}
