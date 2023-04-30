@@ -40,10 +40,16 @@ class _GenerateScreenState extends State<GenerateScreen> {
       "https://www.linkedin.com/in/swati-vinayak-bhat-9b6820248";
   String? _inputErrorText;
   final TextEditingController _textController = TextEditingController();
+  @override
+  void initState() {
+    _textController.text = "matrix.to/#/@"; //default text
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 11, 27, 253),
@@ -95,13 +101,17 @@ class _GenerateScreenState extends State<GenerateScreen> {
                     ),
                   ),
                 
-                  
+                
                   Expanded(
-                    child: TextField(
+                    child: TextFormField(
+                      autofocus: true,
+                      style: const TextStyle(color:Color.fromARGB(255, 255, 255, 255)),
                       decoration: InputDecoration(
-                          fillColor: Color.fromARGB(221, 68, 190, 255),
-                          hintText: "Enter invite link or Matrix ID",
-                          hintStyle: const TextStyle(color: Color.fromARGB(119, 234, 218, 218)),
+                        prefixStyle: const TextStyle(color:Color.fromARGB(255, 255, 255, 255)),
+                         labelText: "Enter Matrix ID or invite link",
+                         prefixText: "matrix.to/#/@",
+                          hintText: "useranme",
+                          hintStyle: TextStyle(color:Color.fromARGB(255, 126, 124, 124)),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(color: Colors.blue, width: 1.0),
                             borderRadius: BorderRadius.circular(20.0),
@@ -283,3 +293,5 @@ class _GenerateScreenState extends State<GenerateScreen> {
 
     
 
+
+    
