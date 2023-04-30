@@ -30,12 +30,8 @@ class _GenerateScreenState extends State<GenerateScreen> {
   final String _dataString =
       "https://www.linkedin.com/in/swati-vinayak-bhat-9b6820248";
   String? _inputErrorText;
-  final TextEditingController _textController = TextEditingController();
-  @override
-  void initState() {
-    _textController.text = "matrix.to/#/@"; //default text
-    super.initState();
-  }
+  late TextEditingController _textController = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +67,11 @@ class _GenerateScreenState extends State<GenerateScreen> {
                 children: [
                   Expanded(
                     child: TextField(
+                      style: const TextStyle(color: Colors.white),
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
                       },
+                      controller: _textController,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide:
@@ -181,7 +179,7 @@ class _GenerateScreenState extends State<GenerateScreen> {
                 backgroundColor: Colors.white,
                 data: _dataString,
                 version: QrVersions.auto,
-                size: 270.0,
+                size: 250.0,
               ),
             ]),
           ),
@@ -205,13 +203,8 @@ class _GenerateScreenState extends State<GenerateScreen> {
         ElevatedButton(
           onPressed: () async {
             scanresult = (await scanner.scan())!;
-            checkingValue();
-            //code to open camera and start scanning,
-            //the scan result is stored to "scanresult" varaible.
-            setState(() {
-              //refresh UI to show the result on app
-            });
-          },
+            _textController.text = scanresult.substring(scanresult.indexOf('@') + 1);
+              },
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(
               horizontal: 40,
@@ -242,6 +235,7 @@ class _GenerateScreenState extends State<GenerateScreen> {
     if (scanresult.startsWith('https://matrix.to/#/')) {
       return openMatrixToUrl();
     }
+    print(scanresult);
     launchUrl(scanresult as Uri);
   }
 
@@ -253,3 +247,5 @@ class _GenerateScreenState extends State<GenerateScreen> {
     }
   }
 }
+//https://matrix.to/#/@dms_akshat:matrix.org"
+//FormatException (FormatException: Invalid envelope)
