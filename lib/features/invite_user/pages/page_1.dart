@@ -40,7 +40,6 @@ class _GenerateScreenState extends State<GenerateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 11, 27, 253),
@@ -72,21 +71,29 @@ class _GenerateScreenState extends State<GenerateScreen> {
                 children: [
                   Expanded(
                     child: TextField(
+                      onTapOutside: (event) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
                       decoration: InputDecoration(
-                         enabledBorder: OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                           borderSide:
                               const BorderSide(color: Colors.white, width: 1.0),
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        prefixStyle: const TextStyle(color:Color.fromARGB(255, 255, 255, 255)),
-                         labelText: "Enter Matrix ID or invite link",
-                         prefixText: "matrix.to/#/@",
-                          hintText: "useranme",
-                          hintStyle: TextStyle(color:Color.fromARGB(255, 126, 124, 124)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.blue, width: 1.0),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),),
+                        prefixStyle: const TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                        labelText: "Enter Matrix ID or invite link",
+                        labelStyle: const TextStyle(color: Colors.white),
+                        prefixText: "matrix.to/#/@",
+                        hintText: "useranme",
+                        hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 126, 124, 124)),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.blue, width: 1.0),
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -246,8 +253,3 @@ class _GenerateScreenState extends State<GenerateScreen> {
     }
   }
 }
-
-    
-
-
-    
