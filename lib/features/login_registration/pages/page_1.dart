@@ -12,10 +12,13 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+final _formKey = GlobalKey<FormState>();
+
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -59,14 +62,37 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.fromLTRB(20.0, 20, 20, 20),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                  child: TextFormField(
-                    cursorColor: Colors.white,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      labelText: "@Username",
-                      prefixIcon: Icon(Icons.person_2_rounded),
-                      hintText: "@example123",
+                  child: Form(
+                    key: _formKey,
+                    child: TextFormField(
+                      onTapOutside: (event) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter some text";
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      cursorColor: Colors.white,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            borderSide: BorderSide(color: Colors.white)),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        labelText: "@Username",
+                        labelStyle: TextStyle(color: Colors.white),
+                        prefixIcon: Icon(
+                          Icons.person_2_rounded,
+                          color: Colors.white,
+                        ),
+                        hintText: "example123",
+                      ),
                     ),
                   ),
                 ),
@@ -78,10 +104,12 @@ class _LoginState extends State<Login> {
                     Expanded(
                       child: MaterialButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return SignIn();
-                            }));
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return SignIn();
+                              }));
+                            }
                           },
                           color: Colors.blue,
                           shape: RoundedRectangleBorder(
@@ -96,10 +124,12 @@ class _LoginState extends State<Login> {
                     Expanded(
                       child: MaterialButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return SignUp();
-                            }));
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return SignUp();
+                              }));
+                            }
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
@@ -113,51 +143,51 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              Divider(
-                  endIndent: BorderSide.strokeAlignCenter, color: Colors.white),
-              Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Image(
-                          height: 40,
-                          width: 40,
-                          image: AssetImage(
-                              "lib/features/login_registration/assets/google.jpg"),
-                        )),
-                    Spacer(),
-                    Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Image(
-                          height: 40,
-                          width: 40,
-                          image: AssetImage(
-                              "lib/features/login_registration/assets/github.jpg"),
-                        )),
-                    Spacer(),
-                    Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Image(
-                          height: 40,
-                          width: 40,
-                          image: AssetImage(
-                              "lib/features/login_registration/assets/twitter.jpg"),
-                        )),
-                    Spacer(),
-                    Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Image(
-                          height: 40,
-                          width: 40,
-                          image: AssetImage(
-                              "lib/features/login_registration/assets/facebook.png"),
-                        )),
-                  ],
-                ),
-              ),
+//              Divider(
+//                  endIndent: BorderSide.strokeAlignCenter, color: Colors.white),
+//              Padding(
+//                padding: const EdgeInsets.all(25.0),
+//                child: Row(
+//                  mainAxisAlignment: MainAxisAlignment.center,
+//                  children: const [
+//                    Padding(
+//                        padding: EdgeInsets.all(10.0),
+//                        child: Image(
+//                          height: 40,
+//                          width: 40,
+//                          image: AssetImage(
+//                              "lib/features/login_registration/assets/google.jpg"),
+//                        )),
+//                    Spacer(),
+//                    Padding(
+//                        padding: EdgeInsets.all(10.0),
+//                        child: Image(
+//                          height: 40,
+//                          width: 40,
+//                          image: AssetImage(
+//                              "lib/features/login_registration/assets/github.jpg"),
+//                        )),
+//                    Spacer(),
+//                    Padding(
+//                        padding: EdgeInsets.all(10.0),
+//                        child: Image(
+//                          height: 40,
+//                          width: 40,
+//                          image: AssetImage(
+//                              "lib/features/login_registration/assets/twitter.jpg"),
+//                        )),
+//                    Spacer(),
+//                    Padding(
+//                        padding: EdgeInsets.all(10.0),
+//                        child: Image(
+//                          height: 40,
+//                          width: 40,
+//                          image: AssetImage(
+//                              "lib/features/login_registration/assets/facebook.png"),
+//                        )),
+//                  ],
+//                ),
+//              ),
               Spacer(),
               // TextButton(
               //     onPressed: () {},
