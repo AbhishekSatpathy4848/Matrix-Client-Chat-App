@@ -1,12 +1,100 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_import
 
 import 'dart:ui';
+import '/features/login_registration/pages/login_home.dart';
 import 'package:flutter/material.dart';
+import 'package:matrix/matrix.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 final _formKey = GlobalKey<FormState>();
 
-class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+void main() async {
+  await WidgetsFlutterBinding.ensureInitialized();
+
+  final client = Client(
+    'Matrix Example Chat',
+    databaseBuilder: (_) async {
+      final dir = await getApplicationSupportDirectory();
+      final db = HiveCollectionsDatabase('matrix_example_chat', dir.path);
+      await db.open();
+      return db;
+    },
+  );
+  await client.init();
+  runApp(MatrixExampleChat(client: client));
+}
+
+class MatrixExampleChat extends StatelessWidget {
+  final Client client;
+  const MatrixExampleChat({required this.client, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Matrix Example Chat',
+      builder: (context, child) => Provider<Client>(
+        create: (context) => client,
+        child: child,
+      ),
+      home: client.isLogged() ? const Placeholder() : const Login(),      //place the roomlist page here
+    );
+  }
+}
+
+
+class SignIn extends StatefulWidget {
+  final String userName;
+  SignIn({super.key,required this.userName});
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+
+
+  final TextEditingController _homeserverTextField = TextEditingController(text: "matrix.org");
+  final TextEditingController _passwordTextField = TextEditingController();
+  bool _loading = false;
+  late String userName;
+
+  void _login() async {
+    setState(() {
+      _loading = true;
+    });
+
+  try {
+      final client = Provider.of<Client>(context, listen: false);
+      await client
+          .checkHomeserver(Uri.https(_homeserverTextField.text.trim(), ''));
+      await client.login(
+        LoginType.mLoginPassword,
+        password: _passwordTextField.text,
+        identifier: AuthenticationUserIdentifier(user: userName),
+      );
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const Placeholder()),       //put room list page here
+        (route) => false,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+      setState(() {
+        _loading = false;
+      });
+    }
+  }  
+
+
+  void init(){
+    super.initState();
+    userName = widget.userName;
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +128,11 @@ class SignIn extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextFormField(
+                
+                controller: _passwordTextField,
+
+
+                autocorrect: false,
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -70,14 +163,7 @@ class SignIn extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: MaterialButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return Placeholder();
-                    }));
-                  }
-                },
+                onPressed: _loading ? null : _login,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 color: Colors.blue,

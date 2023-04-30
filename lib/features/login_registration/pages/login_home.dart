@@ -12,6 +12,7 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+final TextEditingController _usernameTextField = TextEditingController();
 final _formKey = GlobalKey<FormState>();
 
 class _LoginState extends State<Login> {
@@ -65,6 +66,8 @@ class _LoginState extends State<Login> {
                   child: Form(
                     key: _formKey,
                     child: TextFormField(
+                      controller: _usernameTextField,
+                      autocorrect: false,
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
                       },
@@ -85,7 +88,7 @@ class _LoginState extends State<Login> {
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15))),
-                        labelText: "@Username",
+                        labelText: "Username",
                         labelStyle: TextStyle(color: Colors.white),
                         prefixIcon: Icon(
                           Icons.person_2_rounded,
@@ -107,7 +110,7 @@ class _LoginState extends State<Login> {
                             if (_formKey.currentState!.validate()) {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return SignIn();
+                                return SignIn(userName: _usernameTextField.text,);
                               }));
                             }
                           },
