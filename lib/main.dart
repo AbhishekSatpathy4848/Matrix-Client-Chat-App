@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'features/login_registration/pages/page_1.dart';
+import 'features/login_registration/pages/page_2.dart';
 
 void main() {
   runApp(MaterialApp(
     theme: ThemeData.dark(),
-    home: Login(),
+    home: FirstPage(),
   ));
 }
 

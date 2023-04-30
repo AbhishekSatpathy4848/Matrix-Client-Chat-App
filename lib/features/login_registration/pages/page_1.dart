@@ -25,24 +25,20 @@ class _LoginState extends State<Login> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           centerTitle: true,
-          title: Center(
-            child: Row(
-              children: [
-                Text("LOGIN",
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
-                Spacer(
-                  flex: 1,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.help,
-                    ))
-              ],
-            ),
-          ),
+          title: Text("SIGN UP",
+              style: TextStyle(
+                color: Colors.white,
+              )),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.help,
+                  )),
+            )
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
