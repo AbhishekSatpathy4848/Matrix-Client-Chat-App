@@ -1,15 +1,107 @@
 import 'dart:ui';
+import '/features/login_registration/pages/login_home.dart';
 import 'package:flutter/material.dart';
+import 'package:matrix/matrix.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 final _formKey = GlobalKey<FormState>();
 
+class SignUp extends StatefulWidget {
+  final String userName;
+  const SignUp({super.key,required this.userName});
+  void register(){}
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
 
+class _SignUpState extends State<SignUp> {
 
-class SignUp extends StatelessWidget {
-  const SignUp({super.key});
+  final TextEditingController _homeserverTextField = TextEditingController(text: "matrix.org");
+  final TextEditingController _passwordTextField = TextEditingController();
+  final TextEditingController _pass1 = TextEditingController();
+  final TextEditingController _pass2 = TextEditingController();
+  final TextEditingController _displayName = TextEditingController();
+  bool _loading = false;
+  late String userName;
+// @override
+//   Future<RegisterResponse> register({
+//     String? deviceId,
+//     String? initialDeviceDisplayName,
+//     bool? inhibitLogin,
+//     AuthenticationData? auth,
+//     AccountKind? kind,
+//   }) async {
+//     final response = await super.register(
+//       kind: kind,
+//       **//username: widget.userName,
+//       **//password: _passwordTextField.text,
+//       auth: auth,
+//       deviceId: deviceId,
+//       **//initialDeviceDisplayName: initialDeviceDisplayName,
+//       inhibitLogin: inhibitLogin,
+//     );
+
+//     // Connect if there is an access token in the response.
+//     final accessToken = response.accessToken;
+//     final deviceId_ = response.deviceId;
+//     final userId = response.userId;
+//     final homeserver = _homeserverTextField.text;
+//     if (accessToken == null || deviceId_ == null || homeserver == null) {
+//       throw Exception(
+//           'Registered but token, device ID, user ID or homeserver is null.');
+//     }
+//     await init(
+//         newToken: accessToken,
+//         newUserID: userId,
+//         newHomeserver: homeserver,
+//         newDeviceName: initialDeviceDisplayName ?? '',
+//         newDeviceID: deviceId_);
+//     return response;
+//   }
+
+void _register() async {
+    setState(() {
+      _loading = true;
+    });
+
+  try {
+      final client = Provider.of<Client>(context, listen: false);
+      await client
+          .checkHomeserver(Uri.https(_homeserverTextField.text.trim(), ''));
+      await client.register(
+        username: userName,
+        initialDeviceDisplayName: _displayName.text,
+        LoginType.mLoginPassword,
+        password: _passwordTextField.text,
+        identifier: AuthenticationUserIdentifier(user: userName),
+      );
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const Placeholder()),       //put room list page here
+        (route) => false,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+      setState(() {
+        _loading = false;
+      });
+    }
+  }  
+
+  @override
+  void initState(){
+    super.initState();
+    userName = widget.userName;
+
+  }
 
   @override
   Widget build(BuildContext context) {
+    widget.userName;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -41,6 +133,36 @@ class SignUp extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
+                  controller: _displayName,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter some text";
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                  cursorColor: Colors.white,
+                  decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(color: Colors.white)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    labelText: "Display Name",
+                    labelStyle: TextStyle(color: Colors.white),
+                    prefixIcon: Icon(
+                      Icons.person_2_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: TextFormField(
+                  controller: _pass1,
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -70,10 +192,13 @@ class SignUp extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
+                  controller: _pass2,
                   obscureText: true,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter some text";
+                    if (_pass1.text!=_pass2.text) {
+                      return "Passwords don't match";
+                    }
+                    else {_passwordTextField.text=_pass1.text;
                     }
                     return null;
                   },
@@ -133,7 +258,8 @@ class SignUp extends StatelessWidget {
                   if (_formKey.currentState!.validate()) {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return const Placeholder();
+                          _loading ? null : _register;
+                      return const Placeholder();   //place chat room list here
                     }));
                   }
                 },

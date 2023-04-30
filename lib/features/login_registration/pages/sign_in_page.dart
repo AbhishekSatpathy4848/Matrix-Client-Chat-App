@@ -1,5 +1,3 @@
-
-
 import 'dart:ui';
 import '/features/login_registration/pages/login_home.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +67,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: Text("SIGN IN",
+        title: const Text("SIGN IN",
             style: TextStyle(
               color: Colors.white,
             )),
@@ -78,7 +76,7 @@ class _SignInState extends State<SignIn> {
             padding: const EdgeInsets.all(12.0),
             child: IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.help,
                 )),
           )
@@ -86,7 +84,7 @@ class _SignInState extends State<SignIn> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 75,
           ),
           Form(
@@ -106,7 +104,7 @@ class _SignInState extends State<SignIn> {
                   }
                   return null;
                 },
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
                 cursorColor: Colors.white,
@@ -133,8 +131,8 @@ class _SignInState extends State<SignIn> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 color: Colors.blue,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                child:const Padding(
+                  padding: EdgeInsets.fromLTRB(80, 15, 80, 15),
                   child: Text(
                     "SIGN IN",
                     style: TextStyle(

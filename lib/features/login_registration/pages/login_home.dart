@@ -130,7 +130,7 @@ class _LoginState extends State<Login> {
                             if (_formKey.currentState!.validate()) {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return SignUp();
+                                return SignUp(userName: _usernameTextField.text,);
                               }));
                             }
                           },
