@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_import
+
 
 import 'dart:ui';
 import '/features/login_registration/pages/login_home.dart';
@@ -9,43 +9,9 @@ import 'package:provider/provider.dart';
 
 final _formKey = GlobalKey<FormState>();
 
-void main() async {
-  await WidgetsFlutterBinding.ensureInitialized();
-
-  final client = Client(
-    'Matrix Example Chat',
-    databaseBuilder: (_) async {
-      final dir = await getApplicationSupportDirectory();
-      final db = HiveCollectionsDatabase('matrix_example_chat', dir.path);
-      await db.open();
-      return db;
-    },
-  );
-  await client.init();
-  runApp(MatrixExampleChat(client: client));
-}
-
-class MatrixExampleChat extends StatelessWidget {
-  final Client client;
-  const MatrixExampleChat({required this.client, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Matrix Example Chat',
-      builder: (context, child) => Provider<Client>(
-        create: (context) => client,
-        child: child,
-      ),
-      home: client.isLogged() ? const Placeholder() : const Login(),      //place the roomlist page here
-    );
-  }
-}
-
-
 class SignIn extends StatefulWidget {
   final String userName;
-  SignIn({super.key,required this.userName});
+  const SignIn({super.key,required this.userName});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -89,8 +55,8 @@ class _SignInState extends State<SignIn> {
     }
   }  
 
-
-  void init(){
+  @override
+  void initState(){
     super.initState();
     userName = widget.userName;
 

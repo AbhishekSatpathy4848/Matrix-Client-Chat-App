@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_import
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
 final _formKey = GlobalKey<FormState>();
+
+
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -15,7 +15,7 @@ class SignUp extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: Text("SIGN UP",
+        title: const Text("SIGN UP",
             style: TextStyle(
               color: Colors.white,
             )),
@@ -24,7 +24,7 @@ class SignUp extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.help,
                 )),
           )
@@ -32,7 +32,7 @@ class SignUp extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 75,
           ),
           Form(
@@ -48,7 +48,7 @@ class SignUp extends StatelessWidget {
                     }
                     return null;
                   },
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                   cursorColor: Colors.white,
@@ -77,7 +77,7 @@ class SignUp extends StatelessWidget {
                     }
                     return null;
                   },
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                   cursorColor: Colors.white,
@@ -105,7 +105,7 @@ class SignUp extends StatelessWidget {
                     }
                     return null;
                   },
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                   cursorColor: Colors.white,
@@ -133,15 +133,15 @@ class SignUp extends StatelessWidget {
                   if (_formKey.currentState!.validate()) {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return Placeholder();
+                      return const Placeholder();
                     }));
                   }
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 color: Colors.blue,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(80, 15, 80, 15),
                   child: Text(
                     "SIGN UP",
                     style: TextStyle(
