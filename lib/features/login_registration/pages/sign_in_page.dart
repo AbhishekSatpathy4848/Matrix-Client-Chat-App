@@ -1,12 +1,64 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_import
-
 import 'dart:ui';
+import '/features/login_registration/pages/login_home.dart';
 import 'package:flutter/material.dart';
+import 'package:matrix/matrix.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 final _formKey = GlobalKey<FormState>();
 
-class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+class SignIn extends StatefulWidget {
+  final String userName;
+  const SignIn({super.key,required this.userName});
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+
+
+  final TextEditingController _homeserverTextField = TextEditingController(text: "matrix.org");
+  final TextEditingController _passwordTextField = TextEditingController();
+  bool _loading = false;
+  late String userName;
+
+  void _login() async {
+    setState(() {
+      _loading = true;
+    });
+
+  try {
+      final client = Provider.of<Client>(context, listen: false);
+      await client
+          .checkHomeserver(Uri.https(_homeserverTextField.text.trim(), ''));
+      await client.login(
+        LoginType.mLoginPassword,
+        password: _passwordTextField.text,
+        identifier: AuthenticationUserIdentifier(user: userName),
+      );
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const Placeholder()),       //put room list page here
+        (route) => false,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+      setState(() {
+        _loading = false;
+      });
+    }
+  }  
+
+  @override
+  void initState(){
+    super.initState();
+    userName = widget.userName;
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +67,7 @@ class SignIn extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: Text("SIGN IN",
+        title: const Text("SIGN IN",
             style: TextStyle(
               color: Colors.white,
             )),
@@ -24,7 +76,7 @@ class SignIn extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.help,
                 )),
           )
@@ -32,7 +84,7 @@ class SignIn extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 75,
           ),
           Form(
@@ -40,6 +92,11 @@ class SignIn extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextFormField(
+                
+                controller: _passwordTextField,
+
+
+                autocorrect: false,
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -47,7 +104,7 @@ class SignIn extends StatelessWidget {
                   }
                   return null;
                 },
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
                 cursorColor: Colors.white,
@@ -70,19 +127,12 @@ class SignIn extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: MaterialButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return Placeholder();
-                    }));
-                  }
-                },
+                onPressed: _loading ? null : _login,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 color: Colors.blue,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                child:const Padding(
+                  padding: EdgeInsets.fromLTRB(80, 15, 80, 15),
                   child: Text(
                     "SIGN IN",
                     style: TextStyle(
