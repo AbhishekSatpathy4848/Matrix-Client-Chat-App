@@ -39,8 +39,8 @@ class _SignUpState extends State<SignUp> {
         username: userName,
         initialDeviceDisplayName: _displayName.text,
         // LoginType.mLoginPassword,
+        kind: AccountKind.guest,
         password: _passwordTextField.text,
-        // identifier: AuthenticationUserIdentifier(user: userName),
       );
       navigator.pushAndRemoveUntil(
         MaterialPageRoute(
@@ -191,12 +191,12 @@ class _SignUpState extends State<SignUp> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter some text";
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return "Please enter some text";
+                    //   }
+                    //   return null;
+                    // },
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -223,11 +223,12 @@ class _SignUpState extends State<SignUp> {
               child: MaterialButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        _loading ? null : _register;
-                        return const Placeholder(); //place chat room list here
-                      }));
+                      _register();
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          _loading ? null : _register;
+                          return const Placeholder(); //place chat room list here
+                        }));
                     }
                   },
                   shape: RoundedRectangleBorder(
