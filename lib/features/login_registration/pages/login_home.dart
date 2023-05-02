@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_import
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:matrix/matrix.dart';
 import 'package:matrix_chat_app/features/login_registration/pages/sign_up_page.dart';
 import 'package:matrix_chat_app/features/login_registration/pages/sign_in_page.dart';
 
 class Login extends StatefulWidget {
+  // final Client client;
   const Login({super.key});
 
   @override
@@ -24,14 +24,14 @@ class _LoginState extends State<Login> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           centerTitle: true,
-          title: Text("LOGIN",
+          title: const Text("LOGIN",
               style: TextStyle(
                 color: Colors.white,
               )),
           actions: [
             IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.help,
                 ))
           ],
@@ -40,8 +40,8 @@ class _LoginState extends State<Login> {
           padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(30.0),
+              const Padding(
+                padding: EdgeInsets.all(30.0),
                 child: CircleAvatar(
                   backgroundImage: AssetImage(
                       "lib/features/login_registration/assets/matrix_icon.png"),
@@ -49,8 +49,8 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Text(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: const Text(
                   'MatChat',
                   style: TextStyle(
                     color: Colors.white,
@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                         }
                         return null;
                       },
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                       cursorColor: Colors.white,
@@ -117,27 +117,27 @@ class _LoginState extends State<Login> {
                           color: Colors.blue,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
-                          child: Text("SIGN IN",
+                          child: const Text("SIGN IN",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
                               ))),
                     ),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                     Expanded(
                       child: MaterialButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return SignUp();
+                                return SignUp(userName: _usernameTextField.text,);
                               }));
                             }
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
                           color: Colors.blue,
-                          child: Text("SIGN UP",
+                          child: const Text("SIGN UP",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
@@ -191,7 +191,7 @@ class _LoginState extends State<Login> {
 //                  ],
 //                ),
 //              ),
-              Spacer(),
+              const Spacer(),
               // TextButton(
               //     onPressed: () {},
               //     child: Text(
@@ -208,8 +208,8 @@ class _LoginState extends State<Login> {
               //         color: Colors.grey[700],
               //       ),
               //     )),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 18.0),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 18.0),
                 child: Image(
                     color: Colors.grey,
                     height: 30,
