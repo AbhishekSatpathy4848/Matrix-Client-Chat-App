@@ -18,18 +18,19 @@ class ChatHomePage extends StatefulWidget {
 }
 
 class _ChatHomePageState extends State<ChatHomePage> {
-  late Client client;
   late ProfileInformation profile;
+  Future populateUserProfile() async {
+    profile = await widget.client.getUserProfile(widget.client.userID!);
+  }
 
-  void _getProfile() async {
-    profile = await client.getUserProfile(client.userID!);
-    profile.avatarUrl;
-    profile.displayname;
+  @override
+  void initState() {
+    super.initState();
+    populateUserProfile();
   }
 
   @override
   Widget build(BuildContext context) {
-    _getProfile();
     return Scaffold(
         backgroundColor: Colors.grey[850],
         appBar: AppBar(

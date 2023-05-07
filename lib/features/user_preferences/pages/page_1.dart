@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
+import 'package:matrix_chat_app/features/login_registration/pages/login_home.dart';
 
 class Settings extends StatefulWidget {
   final Client client;
@@ -15,6 +16,10 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  void userLogOut() async {
+    await widget.client.logout();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,15 +50,15 @@ class _SettingsState extends State<Settings> {
                   padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.person_2_rounded,
                         color: Colors.white,
                         size: 30,
                       ),
                       TextButton(
-                        style: ButtonStyle(),
+                        style: const ButtonStyle(),
                         onPressed: () {},
-                        child: Text('Display Name',
+                        child: const Text('Display Name',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -68,30 +73,34 @@ class _SettingsState extends State<Settings> {
                 padding: const EdgeInsets.all(15.0),
                 child: Text(
                   '${widget.profile.displayname}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
+              const Padding(
+                padding: EdgeInsets.all(15.0),
                 child: Divider(
                   height: 0,
                   color: Colors.white,
                   thickness: 0.5,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               MaterialButton(
                 height: 40,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 color: Colors.blue,
                 onPressed: () {
-                  widget.client.logout();
+                  userLogOut();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const Login()),
+                    (route) => false,
+                  );
                 },
-                child: Text(
+                child: const Text(
                   'Log Out',
                   style: TextStyle(
                     color: Colors.white,
