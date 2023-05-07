@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'messagee.dart';
-
-void main() => runApp(MaterialApp(
-      home: Convo(),
-    ));
+import 'package:matrix_chat_app/features/chat/chat_class.dart';
 
 class Convo extends StatelessWidget {
-  List<ChatMessage> messages = [
+  Convo({Key? key}) : super(key: key);
+
+  final List<ChatMessage> messages = [
     ChatMessage("Hello, Druv", "receiver"),
     ChatMessage("How have you been?", "receiver"),
     ChatMessage("Hey Criss, I'm fine. wbu", "sender"),
     ChatMessage("ehh, doing good", "receiver"),
     ChatMessage("Where are you?", "sender"),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,53 +19,47 @@ class Convo extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.grey[900],
-          flexibleSpace: SafeArea(
-              child: Container(
-                  padding: EdgeInsets.only(right: 16),
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.arrow_back, color: Colors.white)),
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://static.vecteezy.com/system/resources/previews/002/002/403/original/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"),
-                        maxRadius: 22,
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Expanded(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Criss',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 6,
-                          ),
-                          Text(
-                            'Online',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 13,
-                            ),
-                          )
-                        ],
-                      )),
-                      Icon(
-                        Icons.settings,
-                        color: Colors.black45,
-                      ),
-                    ],
-                  ))),
+          title: Row(
+            children: <Widget>[
+              CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://static.vecteezy.com/system/resources/previews/002/002/403/original/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"),
+                maxRadius: 22,
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Criss',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Text(
+                    'Online',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                    ),
+                  )
+                ],
+              )),
+              Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+            ],
+          ),
         ),
         body: Stack(children: <Widget>[
           ListView.builder(

@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:matrix_chat_app/features/chat_home/pages/page_1.dart';
+import 'package:matrix_chat_app/features/chat/pages/chat_home_page.dart';
 
 import '/features/login_registration/pages/login_home.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +58,7 @@ class _SignUpState extends State<SignUp> {
 
       navigator.pushAndRemoveUntil(
         MaterialPageRoute(
-            builder: (_) => ChatHome(
+            builder: (_) => ChatHomePage(
                 client: client, profile: profile)), //put room list page here
         (route) => false,
       );
@@ -242,7 +242,7 @@ class _SignUpState extends State<SignUp> {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
                         _loading ? null : _register;
-                        return ChatHome(
+                        return ChatHomePage(
                             client: client,
                             profile: profile); //place chat room list here
                       }));
