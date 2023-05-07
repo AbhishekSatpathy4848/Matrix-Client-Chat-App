@@ -19,9 +19,10 @@ class ChatHomePage extends StatefulWidget {
 
 class _ChatHomePageState extends State<ChatHomePage> {
   late Client client;
+  late ProfileInformation profile;
 
   void _getProfile() async {
-    final profile = await client.getUserProfile(client.userID!);
+    profile = await client.getUserProfile(client.userID!);
     profile.avatarUrl;
     profile.displayname;
   }
@@ -65,7 +66,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                               .push(MaterialPageRoute(builder: (context) {
                             return Settings(
                               client: widget.client,
-                              profile: ,
+                              profile: profile,
                             );
                           }));
                         },
