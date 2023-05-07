@@ -8,7 +8,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:matrix_chat_app/features/user_preferences/pages/page_1.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -22,9 +21,6 @@ void main() async {
     },
   );
   await client.init();
-  final profile = await client.getUserProfile(client.userID!);
-  profile.avatarUrl;
-  profile.displayname;
 
   runApp(MaterialApp(
       title: 'Matrix Example Chat',
@@ -35,8 +31,6 @@ void main() async {
       home: client.isLogged()
           ? ChatHomePage(
               client: client,
-              profile: ProfileInformation(
-                  displayname: profile.displayname,
-                  avatarUrl: profile.avatarUrl))
+            )
           : const Login()));
 }

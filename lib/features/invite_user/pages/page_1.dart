@@ -3,7 +3,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:share/share.dart';
 
-
 class GenerateScreen extends StatefulWidget {
   const GenerateScreen({super.key});
 
@@ -17,7 +16,6 @@ class _GenerateScreenState extends State<GenerateScreen> {
   final String _dataString =
       "https://www.linkedin.com/in/swati-vinayak-bhat-9b6820248";
   late TextEditingController _textController = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +49,6 @@ class _GenerateScreenState extends State<GenerateScreen> {
                 children: [
                   Expanded(
                     child: TextField(
-                       
                       style: const TextStyle(color: Colors.white),
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();

@@ -59,7 +59,8 @@ class _SignUpState extends State<SignUp> {
       navigator.pushAndRemoveUntil(
         MaterialPageRoute(
             builder: (_) => ChatHomePage(
-                client: client, profile: profile)), //put room list page here
+                  client: client,
+                )), //put room list page here
         (route) => false,
       );
     } catch (e) {
@@ -243,8 +244,8 @@ class _SignUpState extends State<SignUp> {
                           .push(MaterialPageRoute(builder: (context) {
                         _loading ? null : _register;
                         return ChatHomePage(
-                            client: client,
-                            profile: profile); //place chat room list here
+                          client: client,
+                        ); //place chat room list here
                       }));
                     }
                   },

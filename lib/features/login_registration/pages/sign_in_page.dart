@@ -44,7 +44,8 @@ class _SignInState extends State<SignIn> {
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
             builder: (_) => ChatHomePage(
-                client: client, profile: profile)), //put room list page here
+                  client: client,
+                )), //put room list page here
         (route) => false,
       );
     } catch (e) {

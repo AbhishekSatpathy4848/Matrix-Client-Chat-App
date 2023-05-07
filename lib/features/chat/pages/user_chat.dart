@@ -121,12 +121,13 @@ class Convo extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "type here...",
-                            hintStyle: TextStyle(color: Colors.white70),
-                            border: InputBorder.none,
-                          ),
-                        ),
+                            cursorColor: Colors.white,
+                            decoration: InputDecoration(
+                              hintText: "Type here...",
+                              hintStyle: TextStyle(color: Colors.white70),
+                              border: InputBorder.none,
+                            ),
+                            style: TextStyle(color: Colors.white)),
                       ),
                       SizedBox(
                         width: 15,

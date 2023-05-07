@@ -8,18 +8,27 @@ import 'package:matrix_chat_app/features/user_preferences/pages/page_1.dart';
 
 class ChatHomePage extends StatefulWidget {
   final Client client;
-  final ProfileInformation profile;
-  const ChatHomePage({super.key, required this.client, required this.profile});
+  const ChatHomePage({
+    super.key,
+    required this.client,
+  });
 
   @override
   State<ChatHomePage> createState() => _ChatHomePageState();
 }
-//Profile
-//get accountData => _accountData;
 
 class _ChatHomePageState extends State<ChatHomePage> {
+  late Client client;
+
+  void _getProfile() async {
+    final profile = await client.getUserProfile(client.userID!);
+    profile.avatarUrl;
+    profile.displayname;
+  }
+
   @override
   Widget build(BuildContext context) {
+    _getProfile();
     return Scaffold(
         backgroundColor: Colors.grey[850],
         appBar: AppBar(
@@ -55,12 +64,13 @@ class _ChatHomePageState extends State<ChatHomePage> {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
                             return Settings(
-                              profile: widget.profile,
+                              client: widget.client,
+                              profile: ,
                             );
                           }));
                         },
                         icon: Icon(
-                          Icons.settings,
+                          Icons.person_2_rounded,
                           color: Colors.white,
                         )),
                   )
