@@ -3,10 +3,10 @@ import 'package:matrix/matrix.dart';
 import 'package:matrix_chat_app/features/chat/pages/chat_home_page.dart';
 import 'package:matrix_chat_app/features/login_registration/pages/login_home.dart';
 import 'package:matrix_chat_app/features/login_registration/pages/sign_in_page.dart';
-import 'package:matrix_chat_app/features/user_preferences/pages/page_1.dart';
+import 'package:matrix_chat_app/features/user_preferences/pages/profile_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:matrix_chat_app/features/user_preferences/pages/page_1.dart';
+import 'package:matrix_chat_app/features/user_preferences/pages/profile_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
