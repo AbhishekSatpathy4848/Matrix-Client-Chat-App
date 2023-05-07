@@ -23,10 +23,6 @@ class _ChatHomePageState extends State<ChatHomePage> {
     profile = await widget.client.getUserProfile(widget.client.userID!);
   }
 
-  Future populateUserProfile() async {
-    profile = await widget.client.getUserProfile(widget.client.userID!);
-  }
-
   @override
   void initState() {
     super.initState();
