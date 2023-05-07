@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:matrix/matrix.dart';
 import 'package:matrix_chat_app/features/login_registration/pages/login_home.dart';
 
@@ -20,10 +23,18 @@ class _SettingsState extends State<Settings> {
     await widget.client.logout();
   }
 
+  late Uint8List bytes;
+  final ImagePicker picker = ImagePicker();
+  void pickImage() async {
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    bytes = await image!.readAsBytes();
+    widget.client.setAvatar(MatrixFile(bytes: bytes, name: 'Avatar'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.black,
           centerTitle: true,
@@ -40,14 +51,34 @@ class _SettingsState extends State<Settings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // CircleAvatar(
-              //     child: Image(
-              //   image: (),
-              // )),
+              Image(
+                image: NetworkImage((widget.profile.avatarUrl.toString()),
+                    scale: 1.0),
+              ),
+              //replace this material button with a circular image wrapped with inkwell
+              MaterialButton(
+                  onPressed: () async {
+                    pickImage();
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (_) => Settings(
+                              client: widget.client, profile: widget.profile)),
+                      (route) => false,
+                    );
+                  },
+                  color: Colors.blue,
+                  child: const Text('press me',
+                      style: TextStyle(color: Colors.white))),
+              //userAvatar
+
+              //
+              // Image(
+              //   image: MemoryImage(bytes!),
+              // ),
               Padding(
                 padding: const EdgeInsets.all(1.0),
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                  padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
                   child: Row(
                     children: [
                       const Icon(
