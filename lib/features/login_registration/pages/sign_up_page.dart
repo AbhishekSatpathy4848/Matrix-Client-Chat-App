@@ -12,7 +12,6 @@ final _formKey = GlobalKey<FormState>();
 class SignUp extends StatefulWidget {
   final String userName;
   const SignUp({super.key, required this.userName});
-  void register() {}
   @override
   State<SignUp> createState() => _SignUpState();
 }
@@ -37,12 +36,10 @@ class _SignUpState extends State<SignUp> {
     try {
       client = Provider.of<Client>(context, listen: false);
       final navigator = Navigator.of(context);
-      await client
-          .checkHomeserver(Uri.https(_homeserverTextField.text.trim(), ''));
+
       await client.register(
         username: userName,
         initialDeviceDisplayName: _displayName.text,
-        // LoginType.mLoginPassword,
         kind: AccountKind.guest,
         password: _passwordTextField.text,
       );
@@ -52,9 +49,6 @@ class _SignUpState extends State<SignUp> {
         password: _passwordTextField.text,
         identifier: AuthenticationUserIdentifier(user: userName),
       );
-      final profile = await client.getUserProfile(response.userId!);
-      profile.avatarUrl;
-      profile.displayname;
 
       navigator.pushAndRemoveUntil(
         MaterialPageRoute(

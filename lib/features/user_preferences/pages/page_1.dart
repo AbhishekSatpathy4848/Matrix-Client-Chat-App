@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
 
+import '../../login_registration/pages/login_home.dart';
+
 class Settings extends StatefulWidget {
   final Client client;
   final ProfileInformation profile;
@@ -88,9 +90,7 @@ class _SettingsState extends State<Settings> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 color: Colors.blue,
-                onPressed: () {
-                  widget.client.logout();
-                },
+                onPressed: logoutUser,
                 child: Text(
                   'Log Out',
                   style: TextStyle(
@@ -101,5 +101,13 @@ class _SettingsState extends State<Settings> {
             ],
           ),
         ));
+  }
+
+  void logoutUser() async {
+    await widget.client.logout();
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const Login()),
+      (route) => false,
+    );
   }
 }

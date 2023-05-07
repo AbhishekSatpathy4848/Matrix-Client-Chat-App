@@ -18,18 +18,30 @@ class ChatHomePage extends StatefulWidget {
 }
 
 class _ChatHomePageState extends State<ChatHomePage> {
-  late Client client;
   late ProfileInformation profile;
 
-  void _getProfile() async {
-    profile = await client.getUserProfile(client.userID!);
-    profile.avatarUrl;
-    profile.displayname;
+  Future populateUserProfile() async {
+    profile = await widget.client.getUserProfile(widget.client.userID!);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    populateUserProfile();
+  }
+
+  void joinChat(Room room) async {
+    final navigator = Navigator.of(context);
+    if (room.membership != Membership.join) {
+      await room.join();
+    }
+    navigator.push(MaterialPageRoute(builder: (context) {
+      return Convo(client: widget.client, room: room);
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
-    _getProfile();
     return Scaffold(
         backgroundColor: Colors.grey[850],
         appBar: AppBar(
@@ -94,55 +106,75 @@ class _ChatHomePageState extends State<ChatHomePage> {
               )),
         ),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(15.0, 20, 0, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return Convo();
-                  }));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(1.0),
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: null,
-                          radius: 25,
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+          child: StreamBuilder(
+              stream: widget.client.onSync.stream,
+              builder: (context, snapshot) {
+                return ListView.builder(
+                    itemCount: widget.client.rooms.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 14.0),
+                        child: InkWell(
+                          onTap: () {
+                            joinChat(widget.client.rooms[index]);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: null,
+                                    radius: 25,
+                                  ),
+                                  SizedBox(width: 20),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          widget.client.rooms[index]
+                                              .getLocalizedDisplayname(),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                          widget.client.rooms[index].lastEvent
+                                                  ?.body ??
+                                              '',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.grey[300],
+                                          ))
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              widget.client.rooms[index].notificationCount != 0
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        color: Colors.amberAccent,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: Text(widget.client.rooms[index]
+                                            .notificationCount
+                                            .toString()),
+                                      ),
+                                    )
+                                  : Container()
+                            ],
+                          ),
                         ),
-                        SizedBox(width: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Rick Astley',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            Text('Never gonna give you up',
-                                style: TextStyle(
-                                  color: Colors.grey[300],
-                                ))
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Divider(
-                height: 0,
-                color: Colors.black,
-                thickness: 0.5,
-              ),
-            ],
-          ),
+                      );
+                    });
+              }),
         ));
   }
 }
