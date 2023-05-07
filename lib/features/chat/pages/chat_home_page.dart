@@ -19,6 +19,9 @@ class ChatHomePage extends StatefulWidget {
 
 class _ChatHomePageState extends State<ChatHomePage> {
   late ProfileInformation profile;
+  Future populateUserProfile() async {
+    profile = await widget.client.getUserProfile(widget.client.userID!);
+  }
 
   Future populateUserProfile() async {
     profile = await widget.client.getUserProfile(widget.client.userID!);
