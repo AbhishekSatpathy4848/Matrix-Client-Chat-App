@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
     });
 
     try {
-      final client = Provider.of<Client>(context, listen: false);
+      client = Provider.of<Client>(context, listen: false);
       final navigator = Navigator.of(context);
       await client
           .checkHomeserver(Uri.https(_homeserverTextField.text.trim(), ''));

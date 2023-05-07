@@ -54,7 +54,7 @@ class _ChatHomeState extends State<ChatHome> {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
                             return Settings(
-                              profile: profile,
+                              profile: widget.profile,
                             );
                           }));
                         },
@@ -93,7 +93,7 @@ class _ChatHomeState extends State<ChatHome> {
                   child: Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage('assets/rickroll.jpg'),
+                        backgroundImage:null,
                         radius: 25,
                       ),
                       SizedBox(width: 20),

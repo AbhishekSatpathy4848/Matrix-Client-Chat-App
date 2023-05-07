@@ -9,7 +9,6 @@ class Settings extends StatefulWidget {
   State<Settings> createState() => _SettingsState();
 }
 
-late ProfileInformation profile;
 
 class _SettingsState extends State<Settings> {
   @override
@@ -18,8 +17,8 @@ class _SettingsState extends State<Settings> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: Padding(
-            padding: const EdgeInsets.all(15.0),
+          title: const Padding(
+            padding: EdgeInsets.all(15.0),
             child: Text("Preferences",
                 style: TextStyle(
                   color: Colors.white,
