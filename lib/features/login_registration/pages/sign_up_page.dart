@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:matrix_chat_app/features/chat_home/pages/page_1.dart';
+
 import '/features/login_registration/pages/login_home.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
@@ -24,6 +26,8 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _displayName = TextEditingController();
   bool _loading = false;
   late String userName;
+  late Client client;
+  late ProfileInformation profile;
 
   void _register() async {
     setState(() {
@@ -31,7 +35,7 @@ class _SignUpState extends State<SignUp> {
     });
 
     try {
-      final client = Provider.of<Client>(context, listen: false);
+      client = Provider.of<Client>(context, listen: false);
       final navigator = Navigator.of(context);
       await client
           .checkHomeserver(Uri.https(_homeserverTextField.text.trim(), ''));
@@ -42,9 +46,20 @@ class _SignUpState extends State<SignUp> {
         kind: AccountKind.guest,
         password: _passwordTextField.text,
       );
+
+      final response = await client.login(
+        LoginType.mLoginPassword,
+        password: _passwordTextField.text,
+        identifier: AuthenticationUserIdentifier(user: userName),
+      );
+      final profile = await client.getUserProfile(response.userId!);
+      profile.avatarUrl;
+      profile.displayname;
+
       navigator.pushAndRemoveUntil(
         MaterialPageRoute(
-            builder: (_) => const Placeholder()), //put room list page here
+            builder: (_) => ChatHome(
+                client: client, profile: profile)), //put room list page here
         (route) => false,
       );
     } catch (e) {
@@ -224,11 +239,13 @@ class _SignUpState extends State<SignUp> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _register();
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          _loading ? null : _register;
-                          return const Placeholder(); //place chat room list here
-                        }));
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        _loading ? null : _register;
+                        return ChatHome(
+                            client: client,
+                            profile: profile); //place chat room list here
+                      }));
                     }
                   },
                   shape: RoundedRectangleBorder(

@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:matrix_chat_app/features/chat_home/pages/page_1.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 class SignIn extends StatefulWidget {
   final String userName;
-  const SignIn({super.key,required this.userName});
+  const SignIn({super.key, required this.userName});
 
   @override
   State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-
-
-  final TextEditingController _homeserverTextField = TextEditingController(text: "matrix.org");
+  final TextEditingController _homeserverTextField =
+      TextEditingController(text: "matrix.org");
   final TextEditingController _passwordTextField = TextEditingController();
   bool _loading = false;
   late String userName;
@@ -28,17 +28,22 @@ class _SignInState extends State<SignIn> {
       _loading = true;
     });
 
-  try {
+    try {
       final client = Provider.of<Client>(context, listen: false);
       await client
           .checkHomeserver(Uri.https(_homeserverTextField.text.trim(), ''));
-      await client.login(
+      final response = await client.login(
         LoginType.mLoginPassword,
         password: _passwordTextField.text,
         identifier: AuthenticationUserIdentifier(user: userName),
       );
+      final profile = await client.getUserProfile(response.userId!);
+      profile.avatarUrl;
+      profile.displayname;
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const Placeholder()),       //put room list page here
+        MaterialPageRoute(
+            builder: (_) => ChatHome(
+                client: client, profile: profile)), //put room list page here
         (route) => false,
       );
     } catch (e) {
@@ -51,13 +56,12 @@ class _SignInState extends State<SignIn> {
         _loading = false;
       });
     }
-  }  
+  }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     userName = widget.userName;
-
   }
 
   @override
@@ -92,10 +96,7 @@ class _SignInState extends State<SignIn> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextFormField(
-                
                 controller: _passwordTextField,
-
-
                 autocorrect: false,
                 obscureText: true,
                 validator: (value) {
@@ -131,7 +132,7 @@ class _SignInState extends State<SignIn> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 color: Colors.blue,
-                child:const Padding(
+                child: const Padding(
                   padding: EdgeInsets.fromLTRB(80, 15, 80, 15),
                   child: Text(
                     "SIGN IN",
