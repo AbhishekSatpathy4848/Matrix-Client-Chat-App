@@ -2,21 +2,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
+import 'package:matrix_chat_app/features/chat/pages/user_chat.dart';
 import 'package:matrix_chat_app/features/invite_user/pages/page_1.dart';
 import 'package:matrix_chat_app/features/user_preferences/pages/page_1.dart';
 
-class ChatHome extends StatefulWidget {
+class ChatHomePage extends StatefulWidget {
   final Client client;
   final ProfileInformation profile;
-  const ChatHome({super.key, required this.client, required this.profile});
+  const ChatHomePage({super.key, required this.client, required this.profile});
 
   @override
-  State<ChatHome> createState() => _ChatHomeState();
+  State<ChatHomePage> createState() => _ChatHomePageState();
 }
 //Profile
 //get accountData => _accountData;
 
-class _ChatHomeState extends State<ChatHome> {
+class _ChatHomePageState extends State<ChatHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,33 +87,41 @@ class _ChatHomeState extends State<ChatHome> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(1.0),
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage:null,
-                        radius: 25,
-                      ),
-                      SizedBox(width: 20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Rick Astley',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          Text('Never gonna give you up',
-                              style: TextStyle(
-                                color: Colors.grey[300],
-                              ))
-                        ],
-                      )
-                    ],
+              InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return Convo();
+                  }));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(1.0),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: null,
+                          radius: 25,
+                        ),
+                        SizedBox(width: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Rick Astley',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            Text('Never gonna give you up',
+                                style: TextStyle(
+                                  color: Colors.grey[300],
+                                ))
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
