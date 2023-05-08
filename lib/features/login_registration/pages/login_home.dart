@@ -111,8 +111,7 @@ class _LoginState extends State<Login> {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
                                 return SignIn(
-                                  userName: _usernameTextField.text,
-                                );
+                                    userName: _usernameTextField.text);
                               }));
                             }
                           },
@@ -133,11 +132,9 @@ class _LoginState extends State<Login> {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
                                 return SignUp(
-                                  userName: _usernameTextField.text,
-                                );
+                                    userName: _usernameTextField.text);
                               }));
                             }
-                            ;
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
