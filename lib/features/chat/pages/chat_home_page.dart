@@ -105,7 +105,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
               )),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
           child: StreamBuilder(
               stream: widget.client.onSync.stream,
               builder: (context, snapshot) {
@@ -128,28 +128,38 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                     radius: 25,
                                   ),
                                   SizedBox(width: 20),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          widget.client.rooms[index]
-                                              .getLocalizedDisplayname(),
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      const SizedBox(height: 5),
-                                      Text(
-                                          widget.client.rooms[index].lastEvent
-                                                  ?.body ??
-                                              '',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.grey[300],
-                                          ))
-                                    ],
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.7,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            widget.client.rooms[index]
+                                                .getLocalizedDisplayname(),
+                                            overflow: TextOverflow.fade,
+                                            maxLines: 1,
+                                            softWrap: false,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                            widget.client.rooms[index].lastEvent
+                                                    ?.body ??
+                                                '',
+                                            overflow: TextOverflow.fade,
+                                            maxLines: 1,
+                                            softWrap: false,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.grey[300],
+                                            ))
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
