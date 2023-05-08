@@ -24,7 +24,7 @@ class _GenerateScreenState extends State<GenerateScreen> {
   void initState() {
     super.initState();
     final client = Provider.of<Client>(context, listen: false);
-    _dataString = "https://matrix.to/#/@${client.userID!}:matrix.org";
+    _dataString = "https://matrix.to/#/${client.userID!}";
   }
 
   @override
