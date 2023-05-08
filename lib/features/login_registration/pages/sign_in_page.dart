@@ -18,6 +18,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  int progress_indicator_flag = 1;
   final TextEditingController _homeserverTextField =
       TextEditingController(text: "matrix.org");
   final TextEditingController _passwordTextField = TextEditingController();
@@ -27,6 +28,7 @@ class _SignInState extends State<SignIn> {
   void _login() async {
     setState(() {
       _loading = true;
+      progress_indicator_flag = 0;
     });
 
     try {
@@ -56,6 +58,7 @@ class _SignInState extends State<SignIn> {
       );
       setState(() {
         _loading = false;
+        progress_indicator_flag = 1;
       });
     }
   }
@@ -145,10 +148,13 @@ class _SignInState extends State<SignIn> {
                   ),
                 )),
           ),
-          const Padding(
-            padding: EdgeInsets.all(20.0),
-            child: LinearProgressIndicator(),
-          ),
+          if (progress_indicator_flag == 0)
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: LinearProgressIndicator(
+                color: Colors.blue,
+              ),
+            ),
         ],
       ),
     );
