@@ -31,10 +31,57 @@ class _SettingsState extends State<Settings> {
     widget.client.setAvatar(MatrixFile(bytes: bytes, name: 'Avatar'));
   }
 
+  final TextEditingController _displayName = TextEditingController();
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            backgroundColor: Colors.black,
+            title: const Text('Change Display Name',
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            content: TextFormField(
+              controller: _displayName,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              cursorColor: Colors.white,
+              decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    borderSide: BorderSide(color: Colors.white)),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                labelText: "Display Name",
+                labelStyle: TextStyle(color: Colors.white),
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    widget.client.setDisplayName(
+                        widget.client.userID!, '${_displayName.text}');
+                    Navigator.of(context).pop();
+                    setState(() {});
+                  },
+                  child: const Text('Done',
+                      style: TextStyle(
+                        color: Colors.white,
+                      )))
+            ]);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
           centerTitle: true,
@@ -51,9 +98,17 @@ class _SettingsState extends State<Settings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image(
-                image: NetworkImage((widget.profile.avatarUrl.toString()),
-                    scale: 1.0),
+              Center(
+                child: CircleAvatar(
+                    radius: 50,
+                    child: Image(
+                      image: NetworkImage(
+                          (widget.profile.avatarUrl!
+                              .getThumbnail(widget.client,
+                                  width: 150, height: 150)
+                              .toString()),
+                          scale: 1.0),
+                    )),
               ),
               //replace this material button with a circular image wrapped with inkwell
               MaterialButton(
@@ -66,8 +121,10 @@ class _SettingsState extends State<Settings> {
                       (route) => false,
                     );
                   },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
                   color: Colors.blue,
-                  child: const Text('press me',
+                  child: const Text('Change Avatar',
                       style: TextStyle(color: Colors.white))),
               //userAvatar
 
@@ -80,34 +137,43 @@ class _SettingsState extends State<Settings> {
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
                   child: Row(
-                    children: [
-                      const Icon(
+                    children: const [
+                      Icon(
                         Icons.person_2_rounded,
                         color: Colors.white,
                         size: 30,
                       ),
-                      TextButton(
-                        style: const ButtonStyle(),
-                        onPressed: () {},
-                        child: const Text('Display Name',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
+                      Text('Display Name',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          )),
                     ],
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  '${widget.profile.displayname}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
+                padding: const EdgeInsets.fromLTRB(20, 0, 15, 0),
+                child: Row(
+                  children: [
+                    Text(
+                      '${widget.profile.displayname}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                        onPressed: () {
+                          _dialogBuilder(context);
+                        },
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ))
+                  ],
                 ),
               ),
               const Padding(

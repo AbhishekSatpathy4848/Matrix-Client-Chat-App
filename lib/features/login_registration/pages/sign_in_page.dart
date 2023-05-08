@@ -144,7 +144,11 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 )),
-          )
+          ),
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: LinearProgressIndicator(),
+          ),
         ],
       ),
     );
