@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:matrix/matrix.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:share/share.dart';
 
 class GenerateScreen extends StatefulWidget {
-  const GenerateScreen({super.key});
+  final Client client;
+  const GenerateScreen({required this.client, super.key});
 
   @override
   State<StatefulWidget> createState() => _GenerateScreenState();
@@ -13,9 +16,16 @@ class GenerateScreen extends StatefulWidget {
 class _GenerateScreenState extends State<GenerateScreen> {
   late String scanresult;
   GlobalKey globalKey = GlobalKey();
-  final String _dataString =
-      "https://www.linkedin.com/in/swati-vinayak-bhat-9b6820248";
-  late TextEditingController _textController = TextEditingController();
+  late String _dataString;
+
+  final TextEditingController _textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    final client = Provider.of<Client>(context, listen: false);
+    _dataString = "https://matrix.to/#/@${client.userID!}:matrix.org";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +90,12 @@ class _GenerateScreenState extends State<GenerateScreen> {
                     width: 10,
                   ),
                   FloatingActionButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      createRoomWithUser(_textController.text, widget.client)
+                          .then((value) {
+                        Navigator.of(context).pop();
+                      });
+                    },
                     backgroundColor: Colors.blue,
                     elevation: 0,
                     child: const Icon(
@@ -151,4 +166,9 @@ class _GenerateScreenState extends State<GenerateScreen> {
       ],
     );
   }
+}
+
+Future createRoomWithUser(String userId, Client client) async {
+  await client.createRoom(invite: ["@$userId:matrix.org"]);
+  return;
 }

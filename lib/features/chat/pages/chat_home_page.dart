@@ -95,7 +95,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return GenerateScreen();
+                  return GenerateScreen(client: widget.client);
                 }));
               },
               backgroundColor: Colors.white,
