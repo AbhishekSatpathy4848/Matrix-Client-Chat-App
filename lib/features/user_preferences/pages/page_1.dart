@@ -99,16 +99,18 @@ class _SettingsState extends State<Settings> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Center(
-                child: CircleAvatar(
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: CircleAvatar(
                     radius: 50,
-                    child: Image(
-                      image: NetworkImage(
-                          (widget.profile.avatarUrl!
-                              .getThumbnail(widget.client,
-                                  width: 150, height: 150)
-                              .toString()),
-                          scale: 1.0),
-                    )),
+                    backgroundImage: NetworkImage(
+                        (widget.profile.avatarUrl!
+                            .getThumbnail(widget.client,
+                                width: 150, height: 150)
+                            .toString()),
+                        scale: 1.0),
+                  ),
+                ),
               ),
               //replace this material button with a circular image wrapped with inkwell
               MaterialButton(
