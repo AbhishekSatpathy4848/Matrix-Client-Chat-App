@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:matrix_chat_app/features/chat_home/pages/page_1.dart';
+import 'package:matrix_chat_app/features/chat/pages/chat_home_page.dart';
 
 import '/features/login_registration/pages/login_home.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,6 @@ final _formKey = GlobalKey<FormState>();
 class SignUp extends StatefulWidget {
   final String userName;
   const SignUp({super.key, required this.userName});
-  void register() {}
   @override
   State<SignUp> createState() => _SignUpState();
 }
@@ -37,12 +36,10 @@ class _SignUpState extends State<SignUp> {
     try {
       client = Provider.of<Client>(context, listen: false);
       final navigator = Navigator.of(context);
-      await client
-          .checkHomeserver(Uri.https(_homeserverTextField.text.trim(), ''));
+
       await client.register(
         username: userName,
         initialDeviceDisplayName: _displayName.text,
-        // LoginType.mLoginPassword,
         kind: AccountKind.guest,
         password: _passwordTextField.text,
       );
@@ -52,14 +49,12 @@ class _SignUpState extends State<SignUp> {
         password: _passwordTextField.text,
         identifier: AuthenticationUserIdentifier(user: userName),
       );
-      final profile = await client.getUserProfile(response.userId!);
-      profile.avatarUrl;
-      profile.displayname;
 
       navigator.pushAndRemoveUntil(
         MaterialPageRoute(
-            builder: (_) => ChatHome(
-                client: client, profile: profile)), //put room list page here
+            builder: (_) => ChatHomePage(
+                  client: client,
+                )), //put room list page here
         (route) => false,
       );
     } catch (e) {
@@ -242,9 +237,9 @@ class _SignUpState extends State<SignUp> {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
                         _loading ? null : _register;
-                        return ChatHome(
-                            client: client,
-                            profile: profile); //place chat room list here
+                        return ChatHomePage(
+                          client: client,
+                        ); //place chat room list here
                       }));
                     }
                   },

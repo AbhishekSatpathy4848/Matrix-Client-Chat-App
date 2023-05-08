@@ -110,7 +110,9 @@ class _LoginState extends State<Login> {
                             if (_formKey.currentState!.validate()) {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return SignIn(userName: _usernameTextField.text,);
+                                return SignIn(
+                                  userName: _usernameTextField.text,
+                                );
                               }));
                             }
                           },
@@ -130,9 +132,12 @@ class _LoginState extends State<Login> {
                             if (_formKey.currentState!.validate()) {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return SignUp(userName: _usernameTextField.text,);
+                                return SignUp(
+                                  userName: _usernameTextField.text,
+                                );
                               }));
                             }
+                            ;
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),

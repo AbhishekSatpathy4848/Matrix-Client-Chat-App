@@ -1,10 +1,11 @@
 import 'dart:ui';
+import 'package:matrix_chat_app/features/chat/pages/chat_home_page.dart';
+
 import '/features/login_registration/pages/login_home.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:matrix_chat_app/features/chat_home/pages/page_1.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -42,8 +43,9 @@ class _SignInState extends State<SignIn> {
       profile.displayname;
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-            builder: (_) => ChatHome(
-                client: client, profile: profile)), //put room list page here
+            builder: (_) => ChatHomePage(
+                  client: client,
+                )), //put room list page here
         (route) => false,
       );
     } catch (e) {
