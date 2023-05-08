@@ -142,13 +142,10 @@ class _ConvoState extends State<Convo> {
                                         : Colors.grey[900],
                                   ),
                                   padding: const EdgeInsets.all(16),
-                                  child: Expanded(
-                                    // MediaQuery.of(context).size.width * 0.6,
-                                    child: Text(
-                                      snapshot.data!.events[index].body.trim(),
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 17),
-                                    ),
+                                  child: Text(
+                                    snapshot.data!.events[index].body.trim(),
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 17),
                                   ),
                                 ),
                               ),
