@@ -169,6 +169,6 @@ class _GenerateScreenState extends State<GenerateScreen> {
 }
 
 Future createRoomWithUser(String userId, Client client) async {
-  await client.createRoom(invite: ["@$userId:matrix.org"]);
+  await client.createRoom(invite: ["@$userId"]);
   return;
 }
