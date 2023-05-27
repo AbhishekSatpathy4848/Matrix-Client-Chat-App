@@ -49,6 +49,7 @@ class _ConvoState extends State<Convo> {
   void initState() {
     super.initState();
     initTimeLine();
+    widget.room.requestHistory();
     // widget.room.;
   }
 
