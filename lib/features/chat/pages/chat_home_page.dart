@@ -3,19 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
 import 'package:matrix_chat_app/features/chat/pages/user_chat.dart';
-import 'package:matrix_chat_app/features/invite_user/pages/page_1.dart';
+import 'package:matrix_chat_app/features/invite_user/pages/scanner_page.dart';
 import 'package:matrix_chat_app/features/user_preferences/pages/page_1.dart';
 
 class ChatHomePage extends StatefulWidget {
   final Client client;
-  const ChatHomePage({
-    super.key,
-    required this.client,
-  });
-
+   const ChatHomePage({super.key, required this.client});
   @override
   State<ChatHomePage> createState() => _ChatHomePageState();
 }
+//Profile
+//get accountData => _accountData;
+
+
 
 class _ChatHomePageState extends State<ChatHomePage> {
   late ProfileInformation profile;
@@ -43,31 +43,22 @@ class _ChatHomePageState extends State<ChatHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[850],
+    
         appBar: AppBar(
-            backgroundColor: Colors.black,
-            centerTitle: true,
-            title: Center(
+            backgroundColor: Colors.blue[800],
+            title: Padding(
+              padding: const EdgeInsets.fromLTRB(15, 8, 8, 10),
               child: Row(
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.home,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Expanded(
                     flex: 6,
-                    child: Center(
-                      child: Text('MatChat',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          )),
-                    ),
+                    child: Text('MatChat',
+                        style: TextStyle(
+                          fontFamily: 'obitron',
+                          color: Colors.white,
+                          fontSize: 25,
+                          letterSpacing: 1.5
+                        )),
                   ),
                   Expanded(
                     flex: 1,
@@ -79,7 +70,9 @@ class _ChatHomePageState extends State<ChatHomePage> {
                               client: widget.client,
                               profile: profile,
                             );
-                          }));
+                          }
+                          )
+                          );
                         },
                         icon: Icon(
                           Icons.person_2_rounded,
@@ -142,8 +135,10 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                             maxLines: 1,
                                             softWrap: false,
                                             style: TextStyle(
+                                              fontFamily: 'EDU',
                                               color: Colors.white,
-                                              fontSize: 18,
+                                              fontSize: 20,
+                                              letterSpacing: 1.3,
                                               fontWeight: FontWeight.bold,
                                             )),
                                         const SizedBox(height: 5),
@@ -155,9 +150,12 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                             maxLines: 1,
                                             softWrap: false,
                                             style: TextStyle(
+                                              fontFamily: 'EDU',
+                                              letterSpacing: 1.2, 
                                               fontSize: 15,
                                               color: Colors.grey[300],
-                                            ))
+                                            )),
+                                            Divider(height: 10, color: Colors.grey[700], )
                                       ],
                                     ),
                                   ),
@@ -168,7 +166,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(100),
-                                        color: Colors.amberAccent,
+                                        color: Colors.white,
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(6.0),

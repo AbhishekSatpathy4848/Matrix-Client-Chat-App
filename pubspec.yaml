@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  eva_icons_flutter: ^3.1.0
   file_picker: ^5.2.11
   flutter:
     sdk: flutter
@@ -61,7 +62,8 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/features/login_registration/assets/
+    - lib/features/login_registration/assets/ 
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
@@ -71,17 +73,55 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+   - family: 'EDU'
+     fonts:
+       - asset: fonts/EduNSWACTFoundation-VariableFont_wght.ttf
+
+   - family: 'obitron'
+     fonts:
+       - asset: fonts/Orbitron-VariableFont_wght.ttf
+   
+   - family : 'Dosis'
+     fonts:
+      - asset: fonts/Dosis-VariableFont_wght.ttf
+
+   - family: 'MarcScript'
+     fonts:
+      - asset: fonts/MarckScript-Regular.ttf
+
+   - family: 'Oswald'
+     fonts:
+      - asset: fonts/Oswald-VariableFont_wght.ttf
+
+   - family: 'Playfair'
+     fonts:
+      - asset: fonts/Playfair-Italic-VariableFont_opsz,wdth,wght.ttf
+
+   - family: 'RubikPuddles'
+     fonts:
+      - asset: fonts/RubikPuddles-Regular.ttf
+
+   - family: 'DancingScript'
+     fonts:
+     - asset: fonts/DancingScript-VariableFont_wght.ttf
+
+   - family: 'NanumPenScript'
+     fonts:
+     - asset: fonts\NanumPenScript-Regular.ttf
+
+   - family: 'GloriaHallejuah'
+     fonts:
+     - asset: fonts\GloriaHallelujah-Regular.ttf
+
+   - family: 'PressStart2P'
+     fonts:
+     - asset: fonts\PressStart2P-Regular.ttf
+
+   - family: 'RubikWetPaint'
+     fonts:
+     - asset: fonts\RubikWetPaint-Regular.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
