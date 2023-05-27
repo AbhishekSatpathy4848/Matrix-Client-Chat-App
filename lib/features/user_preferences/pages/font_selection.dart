@@ -11,7 +11,7 @@ class FontSelection extends StatefulWidget {
 
 class _FontSelectionState extends State<FontSelection> {
 
-  List font  = ['Dosis','MarkScript','Oswald', 'Playfair', 'RubikPuddles'];
+  List<String> font  = ['Dosis','MarkScript','Oswald', 'Playfair', 'RubikPuddles', 'DancingScript', 'NanumPenScript', 'GloriaHallejuah', 'PressStart2P', 'RubikWetPaint'];
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +20,30 @@ class _FontSelectionState extends State<FontSelection> {
       appBar: AppBar(
         backgroundColor: Colors.grey[900],
         title: const Text('Select a Font',
-        style: TextStyle(fontFamily: 'obitron', fontSize: 20, letterSpacing: 1.4 , color: Colors.white70)),
+        style: TextStyle(fontFamily: 'obitron', fontSize: 22, letterSpacing: 1.4 , color: Colors.white70)),
       ),
       body:Consumer<BackgroundProvider>(
-      builder: (context,provider,child) => GridView.count(crossAxisCount: 3,children: [
+      builder: (context,provider,child) => GridView.count(
+        crossAxisCount: 1,
+        childAspectRatio: (1/.2),
+        children: [
         for(var i in font)...{
-          GestureDetector(onTap: (){
-              final provider = Provider.of<BackgroundProvider>(context,listen: false);
-              provider.changeFont(i);
-              Navigator.of(context).pop();
-          // ignore: prefer_const_constructors
-          },child: Container(
-            decoration: i == provider.backgroundPath  ? BoxDecoration(border: Border.all(width: 8.0), color: Colors.white )  : const BoxDecoration(),
-            child: Text ('$i' ,
-            style: TextStyle(fontFamily: '$i', fontSize: 10, color: Colors.white, letterSpacing: 1.3),
-            )
-            )
-            )
-          
-        }
+         TextButton(
+           onPressed: (){
+             final provider = Provider.of<BackgroundProvider>(context,listen: false);
+             provider.changeFont(i);
+             Navigator.of(context).pop();
+         // ignore: prefer_const_constructors
+         },child: Column (
+          children: [
+            Center(
+              child: Text (i , style: TextStyle(fontFamily: i, fontSize: 22, color: Colors.white, letterSpacing: 1.3),
+                       ),
+            ),
+          Divider(height: 20, color: Colors.grey[600])
+         ])
+           )
+           }
       ]),
     ),
     );

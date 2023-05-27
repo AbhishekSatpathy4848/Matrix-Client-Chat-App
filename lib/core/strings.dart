@@ -2,3 +2,6 @@
 const String kChat = "Chat";
 const String kLogin = "Login";
 */
+
+const String defaultBackground = "assets/background_3.jpg";
+const String defaultFont = 'Dosis'; 

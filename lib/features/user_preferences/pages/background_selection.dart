@@ -12,11 +12,10 @@ class BackgroundSelection extends StatefulWidget {
 }
 
 class _BackgroundSelectionState extends State<BackgroundSelection> {
-  List<String> path = ["/assets/background_1.png","/assets/background_2.png","/assets/background_3.jpg"];
+  List<String> path = ["assets/background_1.png","assets/background_2.png","assets/background_3.jpg", "assets/background_4.png", "assets/background_5.png", "assets/background_6.png"];
   @override
   Widget build(BuildContext context) {
-  return 
-  Scaffold(
+  return Scaffold(
     appBar: AppBar(
       title: const Text('Select a Background',
         style: TextStyle(fontFamily: 'obitron', fontSize: 20, letterSpacing: 1.4, fontWeight: FontWeight.w400, color: Colors.white70),
@@ -25,17 +24,20 @@ class _BackgroundSelectionState extends State<BackgroundSelection> {
     ),
     backgroundColor: Colors.black87,
     body:Consumer<BackgroundProvider>(
-      builder: (context,provider,child) => GridView.count(crossAxisCount: 3,children: [
+      builder: (context,provider,child) => GridView.count(
+        crossAxisCount: 2,
+        childAspectRatio: (1/2),
+        children: [
         for(var i in path)...{
           GestureDetector(onTap: (){
               final provider = Provider.of<BackgroundProvider>(context,listen: false);
               provider.changeBackground(i);
               Navigator.of(context).pop();
           // ignore: prefer_const_constructors
-          },child: Container(
-            decoration: i == provider.backgroundPath  ? BoxDecoration(border: Border.all(width: 8.0))  : const BoxDecoration(),
-            child: Image.asset('$i')
-            )
+          },child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Image.asset(i, fit: BoxFit.fill,),
+          )
             )
           
         }

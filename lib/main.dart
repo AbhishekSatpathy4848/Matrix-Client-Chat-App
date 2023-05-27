@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:matrix_chat_app/features/user_preferences/pages/page_1.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();  
 
   final client = Client(
     'Matrix Example Chat',
