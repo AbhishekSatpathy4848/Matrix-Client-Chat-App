@@ -27,8 +27,12 @@ class _SettingsState extends State<Settings> {
   final ImagePicker picker = ImagePicker();
   void pickImage() async {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    try{
     bytes = await image!.readAsBytes();
     widget.client.setAvatar(MatrixFile(bytes: bytes, name: 'Avatar'));
+    }catch(e){
+      
+    }
   }
 
   final TextEditingController _displayName = TextEditingController();
@@ -160,7 +164,7 @@ class _SettingsState extends State<Settings> {
                 child: Row(
                   children: [
                     Text(
-                      '${widget.profile.displayname}',
+                      _displayName.text,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
