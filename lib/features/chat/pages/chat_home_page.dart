@@ -113,13 +113,14 @@ class _ChatHomePageState extends State<ChatHomePage> {
                               Row(
                                 children: [
                                   CircleAvatar(
-                                    backgroundImage:
-                                        widget.client.rooms[index].avatar !=
-                                                null
-                                            ? NetworkImage(widget
-                                                .client.rooms[index].avatar
-                                                .toString())
-                                            : null,
+                                    backgroundColor: null,
+                                    // backgroundImage:
+                                    //     widget.client.rooms[index].avatar !=
+                                    //             null
+                                    //         ? NetworkImage(widget
+                                    //             .client.rooms[index].avatar
+                                    //             .toString())
+                                    //         : null,
                                     radius: 25,
                                   ),
                                   SizedBox(width: 14),

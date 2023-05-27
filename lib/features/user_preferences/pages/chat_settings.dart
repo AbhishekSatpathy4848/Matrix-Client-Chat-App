@@ -46,14 +46,13 @@ class _ChatSettingsState extends State<ChatSettings> {
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.all(10),
-                      child: Expanded(
-                          child: Text(
+                      child: Text(
                         'Background Images',
                         style: TextStyle(
                             fontSize: 18,
                             fontFamily: 'open sans',
                             color: Colors.white70),
-                      )),
+                      ),
                     ))),
             Divider(
               height: 20,
@@ -71,14 +70,13 @@ class _ChatSettingsState extends State<ChatSettings> {
                   alignment: Alignment.centerLeft,
                   child: Padding(
                       padding: EdgeInsets.all(10),
-                      child: Expanded(
-                          child: Text(
+                      child: Text(
                         'Fonts',
                         style: TextStyle(
                             fontSize: 18,
                             fontFamily: 'open sans',
                             color: Colors.white70),
-                      )))),
+                      ))),
             ),
             Divider(
               height: 20,

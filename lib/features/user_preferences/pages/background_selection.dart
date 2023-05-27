@@ -50,12 +50,9 @@ class _BackgroundSelectionState extends State<BackgroundSelection> {
                       Navigator.of(context).pop();
                       // ignore: prefer_const_constructors
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        i,
-                        fit: BoxFit.fill,
-                      ),
+                    child: Image.asset(
+                      i,
+                      fit: BoxFit.fill,
                     ))
               }
             ]),

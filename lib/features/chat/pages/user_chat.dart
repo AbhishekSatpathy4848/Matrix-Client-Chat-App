@@ -67,9 +67,10 @@ class _ConvoState extends State<Convo> {
               title: Row(
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundImage: widget.room.avatar != null
-                        ? NetworkImage(widget.room.avatar.toString())
-                        : null,
+                    // backgroundImage: widget.room.avatar != null
+                    //     ? NetworkImage(widget.room.avatar.toString())
+backgroundImage: null,
+
                     maxRadius: 22,
                   ),
                   const SizedBox(
