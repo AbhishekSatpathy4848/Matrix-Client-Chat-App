@@ -73,10 +73,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
+  fonts:   
    - family: 'EDU'
      fonts:
        - asset: fonts/EduNSWACTFoundation-VariableFont_wght.ttf
+
+   - family: 'open sans'
+     fonts:
+       - asset: fonts/OpenSans.ttf
 
    - family: 'obitron'
      fonts:

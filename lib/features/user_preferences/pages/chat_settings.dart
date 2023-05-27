@@ -14,75 +14,77 @@ class ChatSettings extends StatefulWidget {
 }
 
 class _ChatSettingsState extends State<ChatSettings> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<BackgroundProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.black87,
-      appBar: AppBar(
-        backgroundColor: Colors.grey[850],
-        title: const Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-              'Settings',
-                  style: TextStyle(
-              fontSize: 20,
-            letterSpacing: 1.4,
-            fontFamily: 'obitron',
-          ),
-          ),
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.black,
+          title: const Text("SETTINGS",
+              style: TextStyle(
+                color: Colors.white,
+              )),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-        children: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) {
-                return ChangeNotifierProvider.value(value: Provider.of<BackgroundProvider>(context),child: BackgroundSelection()) ;
-              }));
-            },
-          child: const Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Expanded (
-                child:Text(
-                    'Background Images',
-                  style: TextStyle(fontSize: 25, fontFamily: 'EDU', color: Colors.white70),
-                )),)
-          )
-          ),
-          Divider (height: 20, color: Colors.grey[600],),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) {
-                return ChangeNotifierProvider.value(value: Provider.of<BackgroundProvider>(context), child: FontSelection());
-              }));
-            },
-            child: const Align(
-                alignment: Alignment.centerLeft,
-                child: Padding (
-                  padding : EdgeInsets.all(10) ,
-                  child: Expanded(
-                    child: Text(
-                  'Fonts',
-                  style: TextStyle(fontSize: 25, fontFamily: 'EDU', color: Colors.white70),
-                )))
+        body: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(children: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                    return ChangeNotifierProvider.value(
+                        value: Provider.of<BackgroundProvider>(context),
+                        child: const BackgroundSelection());
+                  }));
+                },
+                child: const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Expanded(
+                          child: Text(
+                        'Background Images',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'open sans',
+                            color: Colors.white70),
+                      )),
+                    ))),
+            Divider(
+              height: 20,
+              color: Colors.grey[600],
             ),
-          ),
-      ]
-      ),
-      )
-    );
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                  return ChangeNotifierProvider.value(
+                      value: Provider.of<BackgroundProvider>(context),
+                      child: FontSelection());
+                }));
+              },
+              child: const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Expanded(
+                          child: Text(
+                        'Fonts',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'open sans',
+                            color: Colors.white70),
+                      )))),
+            ),
+            Divider(
+              height: 20,
+              color: Colors.grey[600],
+            ),
+          ]),
+        ));
   }
 }

@@ -93,7 +93,7 @@ class _GenerateScreenState extends State<GenerateScreen> {
                     onPressed: () {
                       createRoomWithUser(_textController.text, widget.client)
                           .then((value) {
-                        Navigator.of(context).pop();
+                        if (value) Navigator.of(context).pop();
                       });
                     },
                     backgroundColor: Colors.blue,
@@ -166,9 +166,15 @@ class _GenerateScreenState extends State<GenerateScreen> {
       ],
     );
   }
-}
 
-Future createRoomWithUser(String userId, Client client) async {
-  await client.createRoom(invite: ["@$userId"]);
-  return;
+  Future<bool> createRoomWithUser(String userId, Client client) async {
+    try {
+      await client.createRoom(invite: ["@$userId"]);
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+      return false;
+    }
+    return true;
+  }
 }
